@@ -8,7 +8,6 @@ require_once('db.php');
 $topicid = $_REQUEST['id'];
 $articlelist = $db->query("select * from article where topicid = ".$topicid);
 $articlelist = $articlelist->fetchAll();
-
 ?>
 
 <!DOCTYPE html>
@@ -29,8 +28,7 @@ $articlelist = $articlelist->fetchAll();
 	<body>
 		<?php
 			foreach($articlelist as $k=>$v){
-				
-				echo "<a class='h_a' href='topic.php?id=".$v['id']."' >".$v['topicname']."</a> ";
+				echo "<a class='h_a' target='_blank' href='".$v['articleurl']."' >".$v['articlename']."</a> ";
 			}
 		?>
 	</body>
