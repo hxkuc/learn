@@ -5,10 +5,28 @@ require_once('core/autoload/autoload.php');
 
 use core\db\db;
 
-$db = new DB('127.0.0.1','learn','root','11111111');
-
 //取出数据
-$topiclist = $db->query("select * from topic");
+$topiclist = DB::query("select * from topic");
+$topiclist1 = DB::query("select * from topic");
+$topiclist2 = DB::query("select * from topic");
+$topiclist3 = DB::query("select * from topic");
+$topiclist4 = DB::query("select * from topic");
+
+/**
+* 
+*/
+class Ds{
+	
+}
+
+$a = new Ds();
+$b = new Ds();
+
+var_dump($a === $b);
+
+
+
+
 ?>
 
 

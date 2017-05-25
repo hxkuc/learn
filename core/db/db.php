@@ -7,25 +7,33 @@ namespace core\db;
 */
 class DB {
 	
-	protected $link = null;
-
-	function __construct($host,$dbname,$username,$password){
-		//连接mysql
-		$db = new \PDO("mysql:host=".$host.";dbname=".$dbname,$username,$password);
-		//设置报错模式
-		$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-		//设置连接方式utf-8防止乱码
-		$db->exec("set names utf8");
-		$this->link = $db;
+	private static $link = null;
+	
+	private function __construct(){	
 	}
 
 	/*
-	*查询数据
+	*执行sql语句
 	*查询所有
 	*/
-	public function query($sql){
-		$list = $this->link->query($sql); 
+	public static function query($sql){
+		self::newdbclass();
+		$list = self::$link->query($sql); 
 		return $list->fetchAll();
+	}
+
+	private static function newdbclass(){
+		if(null == self::$link){
+			//加载配置文件
+			$config = include('config.php');
+			//连接mysql
+			$db = new \PDO("mysql:host=".$config['host'].";dbname=".$config['dbname'],$config['dbuser'],$config['dbpassword']);
+			//设置报错模式
+			$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+			//设置连接方式utf-8防止乱码
+			$db->exec("set names utf8");
+			self::$link = $db;
+		}
 	}
 
 
