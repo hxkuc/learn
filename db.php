@@ -6,7 +6,7 @@
 */
 
 //连接mysql
-$db = new PDO("mysql:host=localhost;dbname=learn","root","11111111");
+$db = new PDO("mysql:host=127.0.0.1;dbname=learn","root","11111111");
 //设置报错模式
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //设置连接方式utf-8防止乱码

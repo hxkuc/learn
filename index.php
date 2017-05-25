@@ -1,13 +1,14 @@
 <?php
 
-//加载数据库文件
-require_once('db.php');
+//引用自动加载文件
+require_once('core/autoload/autoload.php');
+
+use core\db\db;
+
+$db = new DB('127.0.0.1','learn','root','11111111');
 
 //取出数据
-$topiclist = $db->query("select * from topic"); 
-
-$topiclist = $topiclist->fetchAll();
-
+$topiclist = $db->query("select * from topic");
 ?>
 
 
