@@ -41,10 +41,6 @@ $articlelist = $articlelist->fetchAll();
 	<div style="width:80%;float:left">1212</div>
 		<?php
 			foreach($articlelist as $k=>$v){
-<<<<<<< HEAD
-				
-=======
->>>>>>> 69489b8c806baff083384554a67bc1c0f64031e4
 				echo "<a class='h_a' target='_blank' href='".$v['articleurl']."' >".$v['articlename']."</a> ";
 			}
 		?>
