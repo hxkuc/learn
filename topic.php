@@ -27,10 +27,23 @@ $articlelist = $articlelist->fetchAll();
 
 	</head>
 	<body>
+
+	<div style="width:20%;float:left">
+		<h1>下级分类</h1>
+		<div>
+			<ul>
+				<li>12</li>
+				<li>12</li>
+				<li>23</li>
+				<li>552</li>
+			</ul>
+		</div>
+	</div>
+	<div style="width:80%;float:left">1212</div>
 		<?php
 			foreach($articlelist as $k=>$v){
 				
-				echo "<a class='h_a' href='topic.php?id=".$v['id']."' >".$v['topicname']."</a> ";
+				echo "<a class='h_a' target='_blank' href='".$v['articleurl']."' >".$v['articlename']."</a> ";
 			}
 		?>
 	</body>
