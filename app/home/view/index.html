@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>分类首页</title>
+		<meta charset="utf-8">
+		<style>
+			.h_a{
+				color:#02b690;
+				text-decoration: none;
+			}
+		</style>
+	</head>
+	<body>
+		<volist name="topiclist" id="vo">
+			<a class='h_a' href='topic.php?id={$vo.id}' >{$vo.topicname}</a>
+		</volist>
+	</body>
+</html>

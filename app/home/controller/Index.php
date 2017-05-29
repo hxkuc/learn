@@ -1,12 +1,16 @@
 <?php
 namespace home\controller;
+use core\db\db;
 /**
 * huang
 */
 class Index {
 	
 	public function index(){
-		exit('{name:1,id:2}');
+		
+		$topiclist = DB::query("select * from topic");
+		
+		var_dump($topiclist);	
 	}
 }
 
