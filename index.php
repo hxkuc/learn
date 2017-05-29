@@ -4,28 +4,17 @@
 require_once('core/autoload/autoload.php');
 
 use core\db\db;
+use core\route\route;
+
+//定义应用目录路径
+define('APP_PATH','./app/');
+
+//加载路由类
+route::run();
+
 
 //取出数据
 $topiclist = DB::query("select * from topic");
-$topiclist1 = DB::query("select * from topic");
-$topiclist2 = DB::query("select * from topic");
-$topiclist3 = DB::query("select * from topic");
-$topiclist4 = DB::query("select * from topic");
-
-/**
-* 
-*/
-class Ds{
-	
-}
-
-$a = new Ds();
-$b = new Ds();
-
-var_dump($a === $b);
-
-
-
 
 ?>
 

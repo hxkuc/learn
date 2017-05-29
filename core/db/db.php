@@ -1,11 +1,12 @@
 <?php
 namespace core\db;
+use core\db\dbinterface;
 
 /**
 * db类
 *黄2017.5.25
 */
-class DB {
+class DB implements dbinterface {
 	
 	private static $link = null;
 	
@@ -13,16 +14,29 @@ class DB {
 	}
 
 	/*
-	*执行sql语句
-	*查询所有
+	*执行select语句
+	*返回所有行
 	*/
 	public static function query($sql){
-		self::newdbclass();
-		$list = self::$link->query($sql); 
+		self::initlink();
+		$list = self::$link->query($sql);
+		$list->setFetchMode(\PDO::FETCH_ASSOC);//只取关联索引
 		return $list->fetchAll();
 	}
 
-	private static function newdbclass(){
+	/*
+	*执行delete,update,insert语句
+	*返回改变行数
+	*/
+	public static function exec($sql){
+		self::initlink();
+		return self::$link->exec($sql);
+	}
+
+	/*
+	*初始化连接
+	*/
+	private static function initlink(){
 		if(null == self::$link){
 			//加载配置文件
 			$config = include('config.php');
