@@ -1,20 +1,8 @@
-<?php
-
-//加载数据库文件
-require_once('db.php');
-
-
-//获取数据
-$topicid = $_REQUEST['id'];
-$articlelist = $db->query("select * from article where topicid = ".$topicid);
-$articlelist = $articlelist->fetchAll();
-?>
-
 <!DOCTYPE html>
 
 <html>
 	<head>
-		<title>主题页面</title>
+		<title>����ҳ��</title>
 		<meta charset="utf-8">
 
 		<style>
@@ -28,7 +16,7 @@ $articlelist = $articlelist->fetchAll();
 	<body>
 
 	<div style="width:20%;float:left">
-		<h1>下级分类</h1>
+		<h1>�¼�����</h1>
 		<div>
 			<ul>
 				<li>12</li>
