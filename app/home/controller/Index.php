@@ -13,4 +13,8 @@ class Index {
 		VIEW::display();
 	}
 }
+
+
+
+
 ?>
