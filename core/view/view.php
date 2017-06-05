@@ -25,6 +25,7 @@
         		extract(self::$assignarr,EXTR_OVERWRITE);
         		include $file;
         		$html = ob_get_clean();
+        		header('Content-Type:text/html; charset=utf-8');
         		echo $html;
 			}else{
 				echo '找不到模板文件！';

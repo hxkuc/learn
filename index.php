@@ -7,7 +7,8 @@ use core\route\route;
 //定义应用目录路径
 define('APP_PATH','./app/');
 define('ROOT_PATH',__DIR__.'/');
-
+//开启session
+session_start();
 //路由解析
 route::run();
 
