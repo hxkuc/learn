@@ -1,15 +1,12 @@
 <?php
-//引用自动加载文件
-require_once('core/autoload/autoload.php');
-//加载路由类
-use core\route\route;
+
+/*
+*网站入口
+*/
 
 //定义应用目录路径
-define('APP_PATH','./app/');
+define('APP_PATH','./app/');//路径可移出到别的文件夹
 define('ROOT_PATH',__DIR__.'/');
-//开启session
-session_start();
-//路由解析
-route::run();
 
+require_once('core/index.php');//路径可移出到别的文件夹
 ?>
