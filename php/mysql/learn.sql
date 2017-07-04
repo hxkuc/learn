@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2017 �?02 �?09 �?18:29
+-- 生成日期: 2017 �?07 �?04 �?16:48
 -- 服务器版本: 5.5.47
 -- PHP 版本: 5.5.30
 
@@ -34,14 +34,18 @@ CREATE TABLE IF NOT EXISTS `article` (
   `addtime` int(10) unsigned NOT NULL,
   `status` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50 ;
 
 --
 -- 转存表中的数据 `article`
 --
 
 INSERT INTO `article` (`id`, `topicid`, `articlename`, `articleurl`, `addtime`, `status`) VALUES
-(1, 1, 'php使用PDO从数据库表中读取数据', 'http://blog.csdn.net/seoalphas/article/details/44974839', 1, 0);
+(1, 1, 'php使用PDO从数据库表中读取数据', 'http://blog.csdn.net/seoalphas/article/details/44974839', 1, 0),
+(18, 2, '如何写一手漂亮的 Vue', 'http://jeffjade.com/2017/03/11/120-how-to-write-vue-better/', 1498802238, 0),
+(45, 2, 'element', 'http://element.eleme.io/#/zh-CN/component/installation', 1498891235, 0),
+(48, 2, 'iview', 'https://www.iviewui.com/', 1499155222, 0),
+(49, 2, 'vue-cli多页面应用', 'https://github.com/jarvan4dev/vue-multi-page', 1499156040, 0);
 
 -- --------------------------------------------------------
 
