@@ -2,7 +2,7 @@
 
 > 前台html构建步骤
 
-## Build Setup
+## 安装步骤
 
 ``` bash
 # install dependencies
@@ -26,5 +26,4 @@ npm run e2e
 # run all tests
 npm test
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+> 说明如果安装成功但是提示网络请求错误，请修改/html/src/assets/js/H.js下的axios.defaults.baseURL为你php文件所在的http请求地址
