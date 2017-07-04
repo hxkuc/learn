@@ -5,7 +5,7 @@ namespace home\controller;
 /**
 * 主题类
 */
-class topic extends Base {
+class article extends Base {
 	
 	//获取主题下的文章
 	public function getarticlelist(){
@@ -22,17 +22,19 @@ class topic extends Base {
 		$this->ajaxreturn($data);
 	}
 
-	//删除主题下的文章
-	public function deletearticle(){
-		$id = $_REQUEST['id'];
-		$return = array("success"=>0,"info"=>'');
+	public function addarticle(){
+		$data = $_POST;
+		$return = array(
+			"success"=>0,
+			"info"=>'',
+		);
 		$article = new \home\model\article;
-		$res = $article->delete($id);
+		$res = $article->add($data);
 		if($res){
 			$return['success'] = 1;
-			$return['info'] = '删除成功！';
+			$return['info'] = '添加成功！';
 		}else{
-			$return['info'] = '删除失败！';
+			$return['info'] = '添加失败！';
 		}
 		$this->ajaxreturn($return);
 	}
