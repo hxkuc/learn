@@ -1,6 +1,6 @@
 # vue
 
-> A Vue.js project
+> 前台html构建步骤
 
 ## Build Setup
 
