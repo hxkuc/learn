@@ -14,6 +14,8 @@ class Index extends Base {
 	}
 
 	public function gettopiclist(){
+		$_SESSION = '';
+		$_SESSION['username'] = '我是谁';
 		$topiclist = DB::query("select * from topic");
 		$this->ajaxreturn($topiclist);
 	}

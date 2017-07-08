@@ -7,6 +7,8 @@ import axios from 'axios'
 import qs from 'qs'
 axios.defaults.baseURL = 'http://127.0.0.1/learn/php/index.php?s='
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.withCredentials = true
+
 function H () {
 	//定义路径
 }
@@ -46,8 +48,5 @@ H.prototype.get_localStorage = function (obj) {
     // 获取数据
     var data = JSON.parse(localStorage.getItem(obj[0]))
     return obj[1] ? data[obj[1]] : data
-}
-H.prototype.ceshi = function () {
-
 }
 export default new H()

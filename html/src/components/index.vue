@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <img class="logoimg" src="../assets/logo.png">
+    <img class="logoimg" src="../assets/login.png">
     <h1>{{ msg }}</h1>
     <h2>主题</h2>
       <transition-group name="fadeindex" tag="ul">
