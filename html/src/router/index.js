@@ -17,6 +17,24 @@ export default new Router({
       path: '/topic/:id',
       name: 'topic',
       component: resolve => require(['@/components/topic'], resolve)
+    },
+    {
+      path: '/user',
+      name: 'user',
+      meta: {
+        needlogin: true
+      },
+      component: resolve => require(['@/components/user'], resolve)
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: resolve => require(['@/components/login'], resolve)
+    },
+    {
+      path: '/loginpop',
+      name: 'loginpop',
+      component: resolve => require(['@/components/loginpop'], resolve)
     }
   ]
 })

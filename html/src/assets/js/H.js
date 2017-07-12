@@ -9,29 +9,52 @@ axios.defaults.baseURL = 'http://127.0.0.1/learn/php/index.php?s='
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.withCredentials = true
 
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+import store from '../../store'
+
 function H () {
 	//定义路径
 }
 
 H.prototype.ajax = function(url,data,type,fun){
+	const that = this
 	if('get' == type){
 		axios.get(url, {
 			params: data
 		})
 		.then(function (response) {
-			fun(response)
+			//在此做统一的验证
+			if (response.data.needlogin && !response.data.islogin) {
+				//未登录的弹出登陆框
+				store.commit('setstates', ['showlogin', true])
+				// 清空localstorage和store
+				that.set_localStorage('userinfo')
+				store.commit('setstates', ['userinfo', {}])
+				return false
+			}
+			fun(response.data)
 		})
 		.catch(function (error) {
-			alert('网络错误！');
+			ElementUI.Message.error('网络错误！')
 			console.log(error)
 		})
 	}else if('post' == type){
 		axios.post(url, qs.stringify(data))
 		.then(function (response) {
-			fun(response)
+			//在此做统一的验证
+			if (response.data.needlogin && !response.data.islogin) {
+				//未登录的弹出登陆框
+				store.commit('setstates', ['showlogin', true])
+				// 清空localstorage和store
+				that.set_localStorage('userinfo')
+				store.commit('setstates', ['userinfo', {}])
+				return false
+			}
+			fun(response.data)
 		})
 		.catch(function (error) {
-			alert('网络错误！');
+			ElementUI.Message.error('网络错误！')
 			console.log(error)
 		})
 	}
@@ -49,4 +72,5 @@ H.prototype.get_localStorage = function (obj) {
     var data = JSON.parse(localStorage.getItem(obj[0]))
     return obj[1] ? data[obj[1]] : data
 }
-export default new H()
+const HF = new H()
+export {HF, ElementUI, store} 

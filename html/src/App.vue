@@ -2,21 +2,24 @@
   <div id="app">
     <el-menu theme="light" class="menui" :default-active="$route.path" mode="horizontal" router="router">
       <el-menu-item index="/index">首页</el-menu-item>
-      <el-menu-item index="/topic/1">订单管理</el-menu-item>
-      <li v-show="$route.name != 'index'" class="rightli">
-        <i @click="turnback" class="el-icon-caret-left back"></i>
-      </li>
+      <el-menu-item index="/topic/1">主题页</el-menu-item>
       <li class="rightli">
-        <img class="headimg" src="./assets/login.png"/>
+        <router-link :to="{ name:'user'}">
+          <img class="headimg" src="./assets/login.png"/>
+        </router-link>
       </li>
     </el-menu>
     <transition name="fade">
       <router-view></router-view>
     </transition>
+    <div>
+      <login></login>
+    </div>
   </div>
 </template>
 
 <script>
+import login from '@/components/loginpop'
 export default {
   name: 'app',
   data () {
@@ -24,11 +27,7 @@ export default {
       router: true
     }
   },
-  methods: {
-    turnback: function () {
-      this.$router.go(-1)
-    }
-  }
+  components: { login }
 }
 </script>
 
@@ -53,10 +52,6 @@ a{
 .rightli{
   float:right;
   margin:10px;
-}
-.back{
-  font-size:40px;
-  cursor:pointer;
 }
 .menui{
   background-color:#fbfbfb;

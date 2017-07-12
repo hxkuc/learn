@@ -1,7 +1,6 @@
 <?php
 namespace home\model;
 use core\db\DB;
-use core\view\VIEW;
 /**
 * 文章model
 */

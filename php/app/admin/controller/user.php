@@ -1,10 +1,10 @@
 <?php
-namespace home\controller;
+namespace admin\controller;
 
 /**
-* 主题类
+* 用户类
 */
-class topic extends base {
+class user extends base {
 	
 	//获取主题下的文章
 	public function getarticlelist(){
@@ -18,10 +18,8 @@ class topic extends base {
 			"topicinfo"=>$topicinfo,
 			"articlelist"=>$articlelist,
 		);
-		$this->assign('data',$data);
-		$this->ajaxreturn();
+		$this->ajaxreturn($data);
 	}
-
 }
 
 ?>
