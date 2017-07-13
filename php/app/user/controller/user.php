@@ -1,5 +1,5 @@
 <?php
-namespace admin\controller;
+namespace user\controller;
 
 /**
 * 用户类

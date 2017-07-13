@@ -1,53 +1,19 @@
 <template>
-  <div>
-    <h2>
-      <router-link :to="{ name:'index'}">
-        <i class="el-icon-caret-left"></i>返回首页
-      </router-link>
-    </h2>
-    <h1>{{ msg }}</h1>
-    <ul style="margin-bottom: 161px;">
-      
-      <el-card class="cards" v-for="l in links"  :body-style="{ padding: '5px' }">
-      <transition-group name="fadetopic" tag="div">
-      <li v-bind:key="l">
-          <a :href="l.articleurl" target="_blank">{{l.articlename}}</a>
-          <i @click="deletearticle(l.id)" class="el-icon-delete delete"></i> 
-      </li>
-      </transition-group>
-      </el-card>
-      
-    </ul>
-    
-    <div style="position:fixed;bottom:0px;width:100%;background-color:rgba(255, 255, 255, 0.8);" >
-      <el-pagination
-        @size-change="changesize"
-        @current-change="changecurrent"
-        :current-page="currentpage"
-        :page-sizes="[10, 15, 20, 50, 100]"
-        :page-size="pagesize"
-        layout="total, sizes, prev, pager, next"
-        :total="totalcount">
-      </el-pagination>
-    <h2>添加文章</h2>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-      <el-row type="flex" :gutter="10" justify="center">
-        <el-col :span="3" >
-          <el-form-item prop="title">
-            <el-input v-model="ruleForm.title" placeholder="请输入标题"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="3">
-          <el-form-item prop="url">
-            <el-input v-model="ruleForm.url" placeholder="请输入链接"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="1"><el-button class="btn" type="primary" @click="submitForm('ruleForm')">添加</el-button></el-col>
-      </el-row>
-    </el-form>
-    </div>
+  <div style="padding:20px;width:80%;margin:0px auto;">
+    <h1>登录</h1>
+    <el-row :gutter="20">
+      <el-col  :xs="10" :sm="8" :md="6" :lg="5">
+        <el-menu mode="vertical" default-active="1" class="el-menu-vertical-demo">
+          <el-menu-item-group title="个人信息">
+            <el-menu-item index="1"><i class="el-icon-message"></i>个人信息</el-menu-item>
+            <el-menu-item index="2"><i class="el-icon-message"></i>修改密码</el-menu-item>
+          </el-menu-item-group>
+          
+        </el-menu>
+      </el-col>
+      <el-col  :xs="14" :sm="16" :md="18" :lg="19"><div style="background-color:#f70;">11</div></el-col>
+    </el-row>
 
-    
   </div>
 </template>
 
@@ -90,13 +56,13 @@ export default {
             articleurl: that.ruleForm.url
           }, 'post', function (data) {
             loadingInstance.close()
-            if (data.success) {
-              that.$message({message: data.info, type: 'success'})
+            if (data.data.success) {
+              that.$message({message: data.data.info, type: 'success'})
               that.getmsg()
               // 清除表单内容
               that.$refs[formName].resetFields()
             } else {
-              that.$message.error(data.info)
+              that.$message.error(data.data.info)
             }
           })
         } else {
@@ -136,17 +102,17 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        that.H.ajax('/home/article/deletearticle', {id: id}, 'post', function (data) {
-          if (data.success === 1) {
+        that.H.ajax('/home/topic/deletearticle', {id: id}, 'post', function (data) {
+          if (data.data.success === 1) {
             that.$message({
               type: 'success',
-              message: data.info
+              message: data.data.info
             })
             that.getmsg()
           } else {
             that.$message({
               type: 'error',
-              message: data.info
+              message: data.data.info
             })
           }
         })
@@ -166,25 +132,8 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
 a {
   color: #42b983;
-}
-.fadetopic-enter-active{
-    transition: all 0.5s linear;
-}
-.fadetopic-enter{
-   opacity: 0;
 }
 input{
   padding:10px;
@@ -197,19 +146,5 @@ input{
   color:#fff;
   border-radius:3px;
   border-color:#42b983;
-}
-.cards{
-  margin:5px;
-  border:none;
-  box-shadow:none;
-}
-.delete{
-  margin:0px 5px;
-  color:rgb(191, 191, 191);
-  cursor:pointer;
-  opacity:0.2;
-}
-.delete:hover{
-  opacity:1;
 }
 </style>

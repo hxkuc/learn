@@ -1,5 +1,5 @@
 <?php
-namespace admin\controller;
+namespace user\controller;
 use common\controller\regulation;
 /**
 * 黄总制作基础类

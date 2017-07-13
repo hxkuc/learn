@@ -4,7 +4,7 @@
       <el-menu-item index="/index">首页</el-menu-item>
       <el-menu-item index="/topic/1">主题页</el-menu-item>
       <li class="rightli">
-        <router-link :to="{ name:'user'}">
+        <router-link :to="{ name:'userinfo'}">
           <img class="headimg" src="./assets/login.png"/>
         </router-link>
       </li>

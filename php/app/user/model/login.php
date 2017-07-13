@@ -1,5 +1,5 @@
 <?php
-namespace admin\model;
+namespace user\model;
 use core\db\DB;
 /**
 * 登录操作

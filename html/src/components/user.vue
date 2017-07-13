@@ -1,20 +1,25 @@
 <template>
-  <div style="padding:20px;width:80%;margin:0px auto;">
-    <h1>55</h1>
-    <el-row :gutter="20">
-      <el-col  :xs="10" :sm="8" :md="6" :lg="5">
-        <el-menu mode="vertical" default-active="1" class="el-menu-vertical-demo">
-          <el-menu-item-group title="个人信息">
-            <el-menu-item index="1"><i class="el-icon-message"></i>个人信息</el-menu-item>
-            <el-menu-item index="2"><i class="el-icon-message"></i>修改密码</el-menu-item>
-          </el-menu-item-group>
-          
-        </el-menu>
+    <el-row type="flex" justify="center">
+      <el-col :span="12">
+        <h1>用户中心</h1>
+        <el-row :gutter="20">
+          <el-col  :xs="10" :sm="8" :md="6" :lg="4">
+            <el-menu  :default-active="defaulturl" class="el-menu-vertical-demo" router="router">     
+                <el-menu-item index="/user/userinfo"><i class="el-icon-setting"></i>个人信息</el-menu-item>
+                <el-menu-item index="/user/changepassword"><i class="el-icon-edit"></i>修改密码</el-menu-item>
+                <li  class="el-menu-item" style="padding-left: 20px;">
+                  <i class="el-icon-circle-cross"></i>退出登录
+                </li>
+            </el-menu>
+          </el-col>
+          <el-col  :xs="14" :sm="16" :md="18" :lg="20">
+            <transition name="fade">
+            <router-view></router-view>
+            </transition>
+          </el-col>
+        </el-row>
       </el-col>
-      <el-col  :xs="14" :sm="16" :md="18" :lg="19"><div style="background-color:#f70;">11</div></el-col>
     </el-row>
-
-  </div>
 </template>
 
 <script>
@@ -22,19 +27,10 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: ''
+      msg: '',
+      defaulturl: '/user/userinfo',
+      router: true
     }
-  },
-  methods: {
-    getmsg: function () {
-      var that = this
-      that.H.ajax('/admin/user/getarticlelist', {}, 'get', function (response) {
-        console.log(response)
-      })
-    }
-  },
-  mounted: function () {
-    this.getmsg()
   }
 }
 </script>

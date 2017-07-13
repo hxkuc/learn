@@ -24,6 +24,18 @@ export default new Router({
       meta: {
         needlogin: true
       },
+      children: [
+        {
+          path: 'userinfo',
+          name: 'userinfo',
+          component: resolve => require(['@/components/user/userinfo'], resolve)
+        },
+        {
+          path: 'changepassword',
+          name: 'changepassword',
+          component: resolve => require(['@/components/user/changepassword'], resolve)
+        }
+      ],
       component: resolve => require(['@/components/user'], resolve)
     },
     {

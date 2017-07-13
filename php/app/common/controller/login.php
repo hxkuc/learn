@@ -9,7 +9,7 @@ class login extends regulation {
 	public function login(){
 		$data = $_REQUEST;
 		//直接查找是否存在
-		$login = new \admin\model\login;
+		$login = new \user\model\login;
 		$user = $login->getuser($data);
 		if($user){
 			$this->assign('success',1);
