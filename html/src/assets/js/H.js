@@ -27,10 +27,10 @@ H.prototype.ajax = function(url,data,type,fun){
 			//在此做统一的验证
 			if (response.data.needlogin && !response.data.islogin) {
 				//未登录的弹出登陆框
-				store.commit('setstates', ['showlogin', true])
+				that.store('showlogin', true)
 				// 清空localstorage和store
-				that.set_localStorage('userinfo')
-				store.commit('setstates', ['userinfo', {}])
+				that.SL('userinfo')
+				that.store('userinfo', {})
 				return false
 			}
 			fun(response.data)
@@ -45,10 +45,10 @@ H.prototype.ajax = function(url,data,type,fun){
 			//在此做统一的验证
 			if (response.data.needlogin && !response.data.islogin) {
 				//未登录的弹出登陆框
-				store.commit('setstates', ['showlogin', true])
+				that.store('showlogin', true)
 				// 清空localstorage和store
-				that.set_localStorage('userinfo')
-				store.commit('setstates', ['userinfo', {}])
+				that.SL('userinfo')
+				that.store('userinfo', {})
 				return false
 			}
 			fun(response.data)
@@ -59,18 +59,30 @@ H.prototype.ajax = function(url,data,type,fun){
 		})
 	}
 }
-H.prototype.set_localStorage = function (obj, ocj) {
+H.prototype.SL = function (obj, ocj) {
 	if (ocj) {
 		localStorage.setItem(obj, JSON.stringify(ocj))
 	} else {
 		localStorage.removeItem(obj)
 	}
 }
-H.prototype.get_localStorage = function (obj) {
+H.prototype.GL = function (obj) {
 	obj = obj.split('.')
     // 获取数据
     var data = JSON.parse(localStorage.getItem(obj[0]))
     return obj[1] ? data[obj[1]] : data
+}
+H.prototype.store = function (key,value) {
+	store.commit('setstates', [key, value])
+}
+H.prototype.success = function (info) {
+	ElementUI.Message({
+		message: info,
+		type: 'success'
+	})
+}
+H.prototype.error = function (info) {
+	ElementUI.Message.error(info)
 }
 const HF = new H()
 export {HF, ElementUI, store} 

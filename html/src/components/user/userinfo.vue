@@ -1,24 +1,14 @@
 <template>
     <el-row class="boxdiv" type="flex" justify="center">
     <el-col :span="18">
-    <h1>个人信息</h1>
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="活动名称">
-        <el-input v-model="form.name" :disabled="true"></el-input>
-      </el-form-item>
-      <el-form-item label="上传头像">
-        <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button>取消</el-button>
-      </el-form-item>
-    </el-form>
+    <el-upload class="upload-demo" action="//up.qbox.me/" 
+      :show-file-list="false"
+      :on-success="handleAvatarSuccess"
+      :before-upload="beforeAvatarUpload"
+      :data="data">
+      <img v-if="imageUrl" :src="imageUrl" class="avatar">
+      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    </el-upload>
     </el-col>
     </el-row>
 </template>
@@ -28,36 +18,54 @@ export default {
   name: 'userinfo',
   data () {
     return {
-      msg: '',
-      form: {
-        name: '我是名字',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
-      imageUrl: ''
+      data: {token: '', key: ''},
+      imageUrl: this.$store.state.headimg
     }
   },
   methods: {
     handleAvatarSuccess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      var that = this
+      that.imageUrl = 'http://odfb8y4in.bkt.clouddn.com/' + res.key
+      // 更新用户头像
+      that.H.ajax('/user/user/edit', {headimg: that.imageUrl}, 'post', function (response) {
+        if (response.success) {
+          that.$message({
+            message: response.info,
+            type: 'success'
+          })
+          let userinfo = that.H.GL('userinfo')
+          userinfo.headimg = that.imageUrl
+          that.H.store('headimg', that.imageUrl)
+          that.H.SL('userinfo', userinfo)
+        } else {
+          that.$message.error(response.info)
+        }
+      })
     },
     beforeAvatarUpload (file) {
-      const isJPG = file.type === 'image/jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2
-
+      var that = this
+      const isLt2M = file.size / 1024 / 1024 < 1
+      const fileExtension = file.name.split('.').pop().toLowerCase()
+      const isJPG = fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png'
       if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
+        this.$message.error('上传头像图片格式不正确!')
       }
       if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
+        this.$message.error('上传头像图片大小不能超过 1MB!')
       }
-      return isJPG && isLt2M
+      if (!that.data.token) {
+        this.$message.error('网络错误！')
+      }
+      var userinfo = that.H.GL('userinfo')
+      that.data.key = 'learn-headimg-' + userinfo.id + '.' + fileExtension
+      return isJPG && isLt2M && that.data.token
     }
+  },
+  mounted: function () {
+    var that = this
+    that.H.ajax('/user/base/getqiniutoken', {}, 'get', function (response) {
+      that.data.token = response.data
+    })
   }
 }
 </script>
@@ -105,6 +113,7 @@ input{
   width: 178px;
   height: 178px;
   display: block;
+  border-radius:5px;
 }
 
 .boxdiv{

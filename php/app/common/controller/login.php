@@ -30,6 +30,15 @@ class login extends regulation {
 		}
 		return true;
 	}
+
+	//退出登录
+	public function loginout(){
+		session_destroy();
+		$this->assign('success',1);
+		$this->assign('info','操作成功!');
+		$this->assign('islogin',0);
+		$this->ajaxreturn();
+	}
 }
 
 ?>

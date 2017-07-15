@@ -5,7 +5,7 @@
       <el-menu-item index="/topic/1">主题页</el-menu-item>
       <li class="rightli">
         <router-link :to="{ name:'userinfo'}">
-          <img class="headimg" src="./assets/login.png"/>
+          <img class="headimg" :src="$store.state.headimg"/>
         </router-link>
       </li>
     </el-menu>
@@ -27,6 +27,13 @@ export default {
       router: true
     }
   },
+  mounted: function () {
+    // 刷新时要保存到store里的数据，防止刷新页面丢失数据
+    if (this.H.GL('userinfo')) {
+      this.H.store('userinfo', this.H.GL('userinfo'))
+      this.H.store('headimg', this.H.GL('userinfo').headimg)
+    }
+  },
   components: { login }
 }
 </script>
@@ -43,11 +50,10 @@ a{
   text-decoration:none;
 }
 .fade-enter-active{
-    transition: all 0.5s linear;
+    transition: opacity .5s;
 }
 .fade-enter{
    opacity: 0;
-   transform:none;
 }
 .rightli{
   float:right;

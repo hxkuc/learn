@@ -6,7 +6,8 @@ const store = new Vuex.Store({
   state: {
     showlogin: false,
     userinfo: {},
-    next: () => {}
+    next: () => {},
+    headimg: 'static/login.png'
   },
   mutations: {
     setstates (state, obj) {

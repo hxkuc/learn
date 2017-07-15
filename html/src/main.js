@@ -14,10 +14,10 @@ router.beforeEach((to, from, next) => {
   // 判断该路由是否需要登录权限
   if (to.meta.needlogin) {
     // 通过vuex state获取当前的token是否存在
-    let userinfo = H.get_localStorage('userinfo')
+    let userinfo = H.GL('userinfo')
     if (!userinfo) {
-      store.commit('setstates', ['showlogin', true])
-      store.commit('setstates', ['next', next])
+      H.store('showlogin', true)
+      H.store('next', next)
       return false
     }
     next()

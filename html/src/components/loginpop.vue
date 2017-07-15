@@ -46,15 +46,18 @@
               // 登陆成功
               if (data.success) {
                 // 赋值vuex和sessionstorage
-                this.$store.commit('setstates', ['userinfo', data.info])
-                this.H.set_localStorage('userinfo', data.info)
+                this.H.store('userinfo', data.data)
+                if (data.data.headimg) {
+                  this.H.store('headimg', data.data.headimg)
+                }
+                this.H.SL('userinfo', data.data)
                 // 提示登录成功
                 this.$message({
-                  message: '登陆成功！',
+                  message: data.info,
                   type: 'success'
                 })
                 // 关闭当前页面
-                this.$store.commit('setstates', ['showlogin', false])
+                this.H.store('showlogin', false)
                 // 跳转
                 this.$store.state.next()
               } else {

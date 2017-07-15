@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <img class="logoimg" src="../assets/login.png">
+    <img class="logoimg" :src="$store.state.headimg" style="border-radius:50%;">
     <h1>{{ msg }}</h1>
     <h2>主题</h2>
       <transition-group name="fadeindex" tag="ul">
@@ -8,7 +8,7 @@
           <router-link :to="{ name:'topic', params:{id:l.id}}">{{l.topicname}}</router-link>
         </li>
       </transition-group>
-    <h2><a href="javascript:;" @click="openpop">创建主题</a></h2>
+    <h2 v-show="$store.state.userinfo.id"><a href="javascript:;" @click="openpop">创建主题</a></h2>
   </div>
 </template>
 
@@ -23,10 +23,8 @@ export default {
   },
   methods: {
     openpop: function () {
-      this.$message({
-        message: '暂未开放！',
-        type: 'warning'
-      })
+      console.log(JSON.stringify(this.$store.state.userinfo))
+      this.H.error('暂未开放！')
     }
   },
   mounted: function () {

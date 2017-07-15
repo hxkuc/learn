@@ -5,9 +5,8 @@
         <el-row :gutter="20">
           <el-col  :xs="10" :sm="8" :md="6" :lg="4">
             <el-menu  :default-active="defaulturl" class="el-menu-vertical-demo" router="router">     
-                <el-menu-item index="/user/userinfo"><i class="el-icon-setting"></i>个人信息</el-menu-item>
-                <el-menu-item index="/user/changepassword"><i class="el-icon-edit"></i>修改密码</el-menu-item>
-                <li  class="el-menu-item" style="padding-left: 20px;">
+                <el-menu-item index="/user/userinfo"><i class="el-icon-setting"></i>设置头像</el-menu-item>
+                <li  class="el-menu-item" style="padding-left: 20px;" @click="outlogin">
                   <i class="el-icon-circle-cross"></i>退出登录
                 </li>
             </el-menu>
@@ -30,6 +29,29 @@ export default {
       msg: '',
       defaulturl: '/user/userinfo',
       router: true
+    }
+  },
+  methods: {
+    outlogin: function () {
+      var that = this
+      this.$confirm('确定要退出登录?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+      .then(() => {
+        this.H.success('删除成功!')
+        // 请求服务器退出登录
+        this.H.ajax('/common/login/loginout', {}, 'post', function (data) {
+          that.H.SL('userinfo')
+          that.H.store('headimg', 'static/login.png')
+          that.H.store('userinfo', {})
+          that.H.success(data.info)
+          that.$router.push('/index')
+        })
+      })
+      .catch(() => {
+      })
     }
   }
 }
