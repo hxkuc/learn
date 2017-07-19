@@ -3,7 +3,7 @@
       <el-col :span="12">
         <h1>用户中心</h1>
         <el-row :gutter="20">
-          <el-col  :xs="10" :sm="8" :md="6" :lg="4">
+          <el-col  :xs="10" :sm="8" :md="6" :lg="5">
             <el-menu  :default-active="defaulturl" class="el-menu-vertical-demo" router="router">     
                 <el-menu-item index="/user/userinfo"><i class="el-icon-setting"></i>设置头像</el-menu-item>
                 <li  class="el-menu-item" style="padding-left: 20px;" @click="outlogin">
@@ -11,7 +11,7 @@
                 </li>
             </el-menu>
           </el-col>
-          <el-col  :xs="14" :sm="16" :md="18" :lg="20">
+          <el-col  :xs="14" :sm="16" :md="18" :lg="19">
             <transition name="fade">
             <router-view></router-view>
             </transition>

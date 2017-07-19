@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="登录" :visible.sync="$store.state.showlogin" :lock-scroll="false" custom-class="loginstyle" top="30%">
+    <el-dialog title="注册" :visible.sync="$store.state.showregister" :lock-scroll="false" custom-class="loginstyle" top="30%">
       <el-form :model="form" ref="form" :rules="rules">
         <el-form-item  prop="username">
           <el-input type="text" placeholder="请输入用户名" v-model="form.username" auto-complete="off"></el-input>
@@ -8,10 +8,13 @@
         <el-form-item  prop="password">
           <el-input type="password" placeholder="请输入密码" v-model="form.password" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item  prop="spassword">
+          <el-input type="password" placeholder="确认密码" v-model="form.spassword" auto-complete="off"></el-input>
+        </el-form-item>
         <el-form-item>
           <el-row :gutter="10">
-            <el-col :span="12"><el-button style="width:100%" @click="submitForm('form')">登录</el-button></el-col>
-            <el-col :span="12"><el-button style="width:100%" @click="showregister">没有账号去注册</el-button></el-col>
+            <el-col :span="12"><el-button style="width:100%" @click="submitForm('form')">确认注册</el-button></el-col>
+            <el-col :span="12"><el-button style="width:100%" @click="showlogin">已有账号去登录</el-button></el-col>
           </el-row> 
         </el-form-item>
       </el-form>
@@ -22,10 +25,20 @@
 <script>
   export default {
     data () {
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'))
+        } else if (value !== this.form.password) {
+          callback(new Error('两次输入密码不一致!'))
+        } else {
+          callback()
+        }
+      }
       return {
         form: {
           username: '',
-          password: ''
+          password: '',
+          spassword: ''
         },
         rules: {
           username: [
@@ -33,6 +46,9 @@
           ],
           password: [
             { required: true, message: '密码不能为空', trigger: 'change' }
+          ],
+          spassword: [
+            { validator: validatePass2, trigger: 'blur' }
           ]
         },
         labelPosition: 'left'
@@ -42,26 +58,18 @@
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.H.ajax('/common/login/login', this.form, 'post', (data) => {
+            this.H.ajax('/common/login/register', this.form, 'post', (data) => {
               // 登陆成功
               if (data.success) {
-                // 赋值vuex和sessionstorage
-                this.H.store('userinfo', data.data)
-                if (data.data.headimg) {
-                  this.H.store('headimg', data.data.headimg)
-                }
-                this.H.SL('userinfo', data.data)
-                // 设置首页的主题为自己
-                this.H.SL('showindexuid', data.data.id)
-                // 提示登录成功
-                this.$message({
-                  message: data.info,
+                // 注册成功后关闭注册页面弹出提示，打开登录页面
+                this.H.store('showregister', false)
+                this.$confirm('注册成功！, 是否现在登录?', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
                   type: 'success'
-                })
-                // 关闭当前页面
-                this.H.store('showlogin', false)
-                // 跳转
-                this.$store.state.next()
+                }).then(() => {
+                  this.H.store('showlogin', true)
+                }).catch(() => {})
               } else {
                 this.$message.error(data.info)
               }
@@ -71,11 +79,11 @@
           }
         })
       },
-      showregister () {
+      showlogin () {
         var that = this
-        that.H.store('showlogin', false)
+        that.H.store('showregister', false)
         setTimeout(function () {
-          that.H.store('showregister', true)
+          that.H.store('showlogin', true)
         }, 250)
       }
     }

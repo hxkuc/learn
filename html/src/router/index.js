@@ -14,6 +14,16 @@ export default new Router({
       component: resolve => require(['@/components/index'], resolve)
     },
     {
+      path: '/square',
+      name: 'square',
+      component: resolve => require(['@/components/square'], resolve)
+    },
+    {
+      path: '/homepage/:uid',
+      name: 'homepage',
+      component: resolve => require(['@/components/homepage'], resolve)
+    },
+    {
       path: '/topic/:id',
       name: 'topic',
       component: resolve => require(['@/components/topic'], resolve)
@@ -50,9 +60,9 @@ export default new Router({
       component: resolve => require(['@/components/login'], resolve)
     },
     {
-      path: '/loginpop',
-      name: 'loginpop',
-      component: resolve => require(['@/components/loginpop'], resolve)
+      path: '/register',
+      name: 'register',
+      component: resolve => require(['@/components/register'], resolve)
     }
   ]
 })

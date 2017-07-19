@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'topic',
   data () {
     return {
       msg: '',

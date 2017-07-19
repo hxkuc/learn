@@ -31,6 +31,15 @@ class login extends regulation {
 		return true;
 	}
 
+	public function register(){
+		$data = $_REQUEST;
+		$login = new \user\model\login;
+		$isregister = $login->register($data);
+		$this->assign('success',$isregister['success']);
+		$this->assign('info',$isregister['info']);
+		$this->ajaxreturn();
+	}
+
 	//退出登录
 	public function loginout(){
 		session_destroy();

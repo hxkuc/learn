@@ -23,8 +23,8 @@ class topic{
 	/*
 	*获取主题列表
 	*/
-	public function getlist(){
-		$list = DB::query("select * from topic");
+	public function getlist($uid){
+		$list = DB::query("select * from topic where uid = ".$uid);
 		return $list;
 	}
 }

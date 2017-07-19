@@ -5,6 +5,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     showlogin: false,
+    showregister: false,
     userinfo: {},
     next: () => {},
     headimg: 'static/login.png'

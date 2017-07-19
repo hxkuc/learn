@@ -14,6 +14,20 @@ class login{
 		$res = DB::query('select * from `user` where username = "'.$data['username'].'" and password = "'.md5($data['password']).'"');
 		return $res?$res[0]:$res;
 	}
+
+	public function register($data){
+		$res = DB::query('select * from `user` where username = "'.$data['username'].'"');
+		if(count($res)>0){
+			return array("success"=>0,"info"=>'该用户已经存在！');
+		}else{
+			$resin = DB::exec('insert into `user` (username,password) values ("'.$data['username'].'","'.md5($data['password']).'")');
+			if(false !== $resin){
+				return array("success"=>1,"info"=>'注册成功');
+			}else{
+				return array("success"=>0,"info"=>'注册失败');
+			}
+		}
+	}
 }
 
 ?>

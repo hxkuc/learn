@@ -3,7 +3,6 @@
     <img class="logoimg" :src="userinfo.headimg" style="border-radius:50%;">
     <h1>
       {{ userinfo.remarks }}
-      <router-link v-show="!userinfo.id" :to="{ name:'square'}">广场</router-link>
     </h1>
     <h2>主题</h2>
       <transition-group name="fadeindex" tag="ul">
@@ -11,46 +10,28 @@
           <router-link :to="{ name:'topic', params:{id:l.id}}">{{l.topicname}}</router-link>
         </li>
       </transition-group>
-    <h2 v-show="$store.state.userinfo.id"><a href="javascript:;" @click="openpop">创建主题</a></h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'index',
+  name: 'homepage',
   data () {
     return {
-      showindexuid: this.H.GL('showindexuid'),
       links: [],
       userinfo: {}
     }
   },
-  methods: {
-    openpop: function () {
-      console.log(JSON.stringify(this.$store.state.userinfo))
-      this.H.error('暂未开放！')
-    }
-  },
   mounted: function () {
     var that = this
-    // that.showindexuid = 1
-    if (that.showindexuid) {
-      that.H.ajax('/home/index/getindexuser', {uid: that.showindexuid}, 'get', function (response) {
-        if (response.success) {
-          that.userinfo = response.data.userinfo
-          that.links = response.data.topiclist
-          console.log(response.data.userinfo)
-        } else {
-          that.H.error('网络错误！')
-        }
-      })
-    } else {
-      that.userinfo = {
-        headimg: that.$store.state.headimg,
-        remarks: '您还没有登录，或者去这看看！'
+    that.H.ajax('/home/index/getindexuser', {uid: that.$route.params.uid}, 'get', function (response) {
+      if (response.success) {
+        that.userinfo = response.data.userinfo
+        that.links = response.data.topiclist
+      } else {
+        that.H.error('网络错误！')
       }
-      that.links = []
-    }
+    })
   }
 }
 </script>

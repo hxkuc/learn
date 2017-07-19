@@ -26,8 +26,14 @@ export default {
     handleAvatarSuccess (res, file) {
       var that = this
       that.imageUrl = 'http://odfb8y4in.bkt.clouddn.com/' + res.key
+      // 获取用户缓存信息
+      let userinfo = that.H.GL('userinfo')
+      if (!userinfo.id) {
+        that.error('用户未登录！')
+        return false
+      }
       // 更新用户头像
-      that.H.ajax('/user/user/edit', {headimg: that.imageUrl}, 'post', function (response) {
+      that.H.ajax('/user/user/edit', {headimg: that.imageUrl, uid: userinfo.id}, 'post', function (response) {
         if (response.success) {
           that.$message({
             message: response.info,

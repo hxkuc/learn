@@ -2,7 +2,7 @@
   <div id="app">
     <el-menu theme="light" class="menui" :default-active="$route.path" mode="horizontal" router="router">
       <el-menu-item index="/index">首页</el-menu-item>
-      <el-menu-item index="/topic/1">主题页</el-menu-item>
+      <el-menu-item index="/square">广场</el-menu-item>
       <li class="rightli">
         <router-link :to="{ name:'userinfo'}">
           <img class="headimg" :src="$store.state.headimg"/>
@@ -14,12 +14,14 @@
     </transition>
     <div>
       <login></login>
+      <register></register>
     </div>
   </div>
 </template>
 
 <script>
-import login from '@/components/loginpop'
+import login from '@/components/login'
+import register from '@/components/register'
 export default {
   name: 'app',
   data () {
@@ -34,7 +36,7 @@ export default {
       this.H.store('headimg', this.H.GL('userinfo').headimg)
     }
   },
-  components: { login }
+  components: { login, register }
 }
 </script>
 

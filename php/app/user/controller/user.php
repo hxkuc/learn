@@ -23,6 +23,7 @@ class user extends base {
 
 	public function edit(){
 		$data['headimg'] = $_REQUEST['headimg'];
+		$data['uid'] = $_REQUEST['uid'];
 		$user = new \user\model\user;
 		$res = $user->edit($data);
 		if (false !== $res) {
