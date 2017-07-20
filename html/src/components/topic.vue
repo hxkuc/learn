@@ -1,9 +1,9 @@
 <template>
   <div>
     <h2>
-      <router-link :to="{ name:'index'}">
-        <i class="el-icon-caret-left"></i>返回首页
-      </router-link>
+      <a href="javascript:;" @click="$router.back(-1)">
+        <i class="el-icon-caret-left"></i>返回
+      </a>
     </h2>
     <h1>{{ msg }}</h1>
     <ul style="margin-bottom: 161px;">

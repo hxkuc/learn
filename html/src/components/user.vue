@@ -5,16 +5,16 @@
         <el-row :gutter="20">
           <el-col  :xs="10" :sm="8" :md="6" :lg="5">
             <el-menu  :default-active="defaulturl" class="el-menu-vertical-demo" router="router">     
+                <el-menu-item index="/user/usertopic"><i class="el-icon-setting"></i>链接主题</el-menu-item>
+                <el-menu-item :index="myhomepage"><i class="el-icon-setting"></i>我的主页</el-menu-item>
                 <el-menu-item index="/user/userinfo"><i class="el-icon-setting"></i>设置头像</el-menu-item>
                 <li  class="el-menu-item" style="padding-left: 20px;" @click="outlogin">
                   <i class="el-icon-circle-cross"></i>退出登录
                 </li>
             </el-menu>
           </el-col>
-          <el-col  :xs="14" :sm="16" :md="18" :lg="19">
-            <transition name="fade">
+          <el-col  :xs="14" :sm="16" :md="18" :lg="19">         
             <router-view></router-view>
-            </transition>
           </el-col>
         </el-row>
       </el-col>
@@ -27,7 +27,8 @@ export default {
   data () {
     return {
       msg: '',
-      defaulturl: '/user/userinfo',
+      defaulturl: '/user/usertopic',
+      myhomepage: '/homepage/' + this.H.GL('userinfo').id,
       router: true
     }
   },
@@ -77,5 +78,8 @@ input{
   color:#fff;
   border-radius:3px;
   border-color:#42b983;
+}
+.el-menu-vertical-demo{
+  text-align:left;
 }
 </style>

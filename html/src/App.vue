@@ -4,7 +4,7 @@
       <el-menu-item index="/index">首页</el-menu-item>
       <el-menu-item index="/square">广场</el-menu-item>
       <li class="rightli">
-        <router-link :to="{ name:'userinfo'}">
+        <router-link :to="{ name:'usertopic'}">
           <img class="headimg" :src="$store.state.headimg"/>
         </router-link>
       </li>

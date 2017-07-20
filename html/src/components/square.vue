@@ -5,7 +5,8 @@
         <el-col :span="4" v-for="(o, index) in userlist" :key="o" class="cardlistone">
           <el-card :body-style="{ padding: '0px', cursor:'pointer'}">
             <div @click="gotohomepage(o.id)">
-              <img :src="o.headimg" class="image">
+              <img :src="o.headimg" class="image" v-if="o.headimg">
+              <img src="static/login.png" class="image" v-else>
               <div style="padding:14px;">
                 <span class="time">{{o.remarks}}</span>
                 <div class="bottom clearfix">

@@ -50,8 +50,21 @@ class DB implements dbinterface {
 		}
 	}
 
+	/*
+	事务管理
+	*/
+	public static function startTrans(){
+		self::initlink();
+		self::$link->beginTransaction();
+	}
 
+	public static function commit(){
+		self::$link->commit();
+	}
 
+	public static function rollback(){
+		self::$link->rollback();
+	}
 
 }
 
