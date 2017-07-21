@@ -83,13 +83,11 @@ export default {
       var that = this
       that.$refs[formName].validate((valid) => {
         if (valid) {
-          let loadingInstance = that.$loading({ fullscreen: true })
-          that.H.ajax('/home/article/addarticle', {
+          that.H.ajax('/user/user/addarticle', {
             topicid: that.$route.params.id,
             articlename: that.ruleForm.title,
             articleurl: that.ruleForm.url
           }, 'post', function (data) {
-            loadingInstance.close()
             if (data.success) {
               that.$message({message: data.info, type: 'success'})
               that.getmsg()
@@ -136,7 +134,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        that.H.ajax('/home/article/deletearticle', {id: id}, 'post', function (data) {
+        that.H.ajax('/user/user/deletearticle', {id: id}, 'post', function (data) {
           if (data.success === 1) {
             that.$message({
               type: 'success',
@@ -166,17 +164,14 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
-
 ul {
   list-style-type: none;
   padding: 0;
 }
-
 li {
   display: inline-block;
   margin: 0 10px;
 }
-
 a {
   color: #42b983;
 }

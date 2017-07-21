@@ -6,6 +6,7 @@
           <el-col  :xs="10" :sm="8" :md="6" :lg="5">
             <el-menu  :default-active="defaulturl" class="el-menu-vertical-demo" router="router">     
                 <el-menu-item index="/user/usertopic"><i class="el-icon-setting"></i>链接主题</el-menu-item>
+                <el-menu-item index="/user/userarticle"><i class="el-icon-setting"></i>链接列表</el-menu-item>
                 <el-menu-item :index="myhomepage"><i class="el-icon-setting"></i>我的主页</el-menu-item>
                 <el-menu-item index="/user/userinfo"><i class="el-icon-setting"></i>设置头像</el-menu-item>
                 <li  class="el-menu-item" style="padding-left: 20px;" @click="outlogin">
@@ -27,7 +28,7 @@ export default {
   data () {
     return {
       msg: '',
-      defaulturl: '/user/usertopic',
+      defaulturl: this.$route.path,
       myhomepage: '/homepage/' + this.H.GL('userinfo').id,
       router: true
     }

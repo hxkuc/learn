@@ -60,6 +60,14 @@ export default new Router({
           component: resolve => require(['@/components/user/changepassword'], resolve)
         },
         {
+          path: 'userarticle',
+          name: 'userarticle',
+          meta: {
+            needlogin: true
+          },
+          component: resolve => require(['@/components/user/userarticle'], resolve)
+        },
+        {
           path: 'addtopic',
           name: 'addtopic',
           meta: {

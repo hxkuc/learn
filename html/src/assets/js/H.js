@@ -19,11 +19,13 @@ function H () {
 
 H.prototype.ajax = function(url,data,type,fun){
 	const that = this
+	//let loadingInstance = ElementUI.Loading.service({ fullscreen: true })
 	if('get' == type){
 		axios.get(url, {
 			params: data
 		})
 		.then(function (response) {
+			//loadingInstance.close()
 			//在此做统一的验证
 			if (response.data.needlogin && !response.data.islogin) {
 				//未登录的弹出登陆框
@@ -36,12 +38,14 @@ H.prototype.ajax = function(url,data,type,fun){
 			fun(response.data)
 		})
 		.catch(function (error) {
+			//loadingInstance.close()
 			ElementUI.Message.error('网络错误！')
 			console.log(error)
 		})
 	}else if('post' == type){
 		axios.post(url, qs.stringify(data))
 		.then(function (response) {
+			//loadingInstance.close()
 			//在此做统一的验证
 			if (response.data.needlogin && !response.data.islogin) {
 				//未登录的弹出登陆框
@@ -54,6 +58,7 @@ H.prototype.ajax = function(url,data,type,fun){
 			fun(response.data)
 		})
 		.catch(function (error) {
+			//loadingInstance.close()
 			ElementUI.Message.error('网络错误！')
 			console.log(error)
 		})

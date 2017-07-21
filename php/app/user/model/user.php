@@ -26,6 +26,7 @@ class user{
 		$list = DB::query('select id,username,headimg,remarks from `user`');
 		return $list;
 	}
+
 }
 
 ?>

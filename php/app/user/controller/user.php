@@ -70,6 +70,90 @@ class user extends base {
 		}
 		$this->ajaxreturn();
 	}
+
+	// 删除文章
+	public function deletearticle(){
+		$id = $_REQUEST['id'];
+		$article = new \home\model\article;
+		$info = $article->info($id);
+		if($info['uid'] != $_SESSION['userinfo']['id']){
+			$this->assign('info','您没有权限删除别人的文章！');
+			$this->ajaxreturn();
+		}
+		$res = $article->delete($id);
+		if($res){
+			$this->assign('success',1);
+			$this->assign('info','删除成功！');
+		}else{
+			$this->assign('info','删除失败！');
+		}
+		$this->ajaxreturn();
+	}
+
+	// 主题下新增文章
+	public function addarticle(){
+		$data = $_REQUEST;
+		// 判断主题是否属于该用户
+		$topic = new \home\model\topic;
+		$topicinfo = $topic->info($data['topicid']);
+		$info = '';
+		if($topicinfo['uid'] != $_SESSION['userinfo']['id']){
+			$data['status'] = 0;
+			$info = '操作成功！等待该收藏夹作者审核！';
+		}else{
+			$data['status'] = 1;
+			$info = '操作成功！';
+		}
+		$data['uid'] = $topicinfo['uid'];
+		$data['adduid'] = $_SESSION['userinfo']['id'];
+		$article = new \home\model\article;
+		$res = $article->add($data);
+		if($res){
+			$this->assign('success',1);
+			$this->assign('info',$info);
+		}else{
+			$this->assign('info','操作失败！');
+		}
+		$this->ajaxreturn();
+	}
+
+	// 获取用户的主题信息
+	public function getusertopiclist(){
+		$topic = new \home\model\topic;
+		$list = $topic->getlist($_SESSION['userinfo']['id']);
+		$this->assign('data',$list);
+		$this->ajaxreturn();
+	}
+
+	/*
+	*用户中心-链接列表页
+	*获取用户的链接列表
+	*/
+	public function getuserarticlelist(){
+		$filter = $_REQUEST;
+		//print_r($filter);exit;
+		$filter['uid'] = $_SESSION['userinfo']['id'];
+		$article = new \home\model\article;
+		$data = $article->getarticlelist($filter);
+		$this->assign('data',$data);
+		$this->ajaxreturn();
+	}
+
+	/*
+	*改变链接状态审核隐藏
+	*/
+	public function changearticlestatus(){
+		$data = $_REQUEST;
+		$article = new \home\model\article;
+		$res = $article->changestatus($data);
+		if(false !== $res){
+			$this->assign('success',1);
+			$this->assign('info','操作成功！');
+		}else{
+			$this->assign('info','操作失败！');
+		}
+		$this->ajaxreturn();
+	}
 }
 
 ?>
