@@ -33,7 +33,11 @@ export default {
     // 刷新时要保存到store里的数据，防止刷新页面丢失数据
     if (this.H.GL('userinfo')) {
       this.H.store('userinfo', this.H.GL('userinfo'))
-      this.H.store('headimg', this.H.GL('userinfo').headimg)
+      if (this.H.GL('userinfo').headimg) {
+        this.H.store('headimg', this.H.GL('userinfo').headimg)
+      } else {
+        this.H.store('headimg', 'static/login.png')
+      }
     }
   },
   components: { login, register }

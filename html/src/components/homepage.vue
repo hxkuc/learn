@@ -1,6 +1,7 @@
 <template>
   <div>
-    <img class="logoimg" :src="userinfo.headimg" style="border-radius:50%;">
+    <img class="logoimg" :src="userinfo.headimg" style="border-radius:50%;" v-if="userinfo.headimg">
+    <img class="logoimg" src="static/login.png" style="border-radius:50%;" v-else>
     <h1>
       {{ userinfo.remarks }}
     </h1>

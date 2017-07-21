@@ -1,6 +1,7 @@
 <template>
   <div>
-    <img class="logoimg" :src="userinfo.headimg" style="border-radius:50%;">
+    <img class="logoimg" :src="userinfo.headimg" style="border-radius:50%;" v-if="userinfo.headimg">
+    <img class="logoimg" src="static/login.png" style="border-radius:50%;" v-else>
     <h1>
       {{ userinfo.remarks }}
       <router-link v-show="!userinfo.id" :to="{ name:'square'}">广场</router-link>
@@ -11,7 +12,6 @@
           <router-link :to="{ name:'topic', params:{id:l.id}}">{{l.topicname}}</router-link>
         </li>
       </transition-group>
-    <h2 v-show="$store.state.userinfo.id"><a href="javascript:;" @click="openpop">创建主题</a></h2>
   </div>
 </template>
 
@@ -23,12 +23,6 @@ export default {
       showindexuid: this.H.GL('showindexuid'),
       links: [],
       userinfo: {}
-    }
-  },
-  methods: {
-    openpop: function () {
-      console.log(JSON.stringify(this.$store.state.userinfo))
-      this.H.error('暂未开放！')
     }
   },
   mounted: function () {
