@@ -16,7 +16,7 @@
           :value="item.id">
         </el-option>
       </el-select> 
-      <el-button class="filter-item" type="primary" v-waves icon="search" @click="searchlist">搜索</el-button>
+      <el-button class="filter-item" type="primary" icon="search" @click="searchlist">搜索</el-button>
     </el-row>
     <el-row>
       <el-table
