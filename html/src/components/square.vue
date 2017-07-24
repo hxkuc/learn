@@ -1,16 +1,16 @@
 <template>
   <el-row type="flex" justify="center" class="box">
-    <el-col :span="16">
+    <el-col :xs="24" :sm="22" :md="20" :lg="18">
       <el-row  class="cardlist" :gutter="25">
-        <el-col :span="4" v-for="(o, index) in userlist" :key="o" class="cardlistone">
-          <el-card :body-style="{ padding: '0px', cursor:'pointer'}">
-            <div @click="gotohomepage(o.id)">
-              <img :src="o.headimg" class="image" v-if="o.headimg">
-              <img src="static/login.png" class="image" v-else>
+        <el-col :xs="24" :sm="8" :md="6" :lg="4" v-for="(o, index) in userlist" :key="o" class="cardlistone">
+          <el-card :body-style="{ padding: '0px'}">
+            <div>
+              <img @click="gotohomepage(o.id)" :src="o.headimg" class="image" v-if="o.headimg">
+              <img @click="gotohomepage(o.id)" src="static/login.png" class="image" v-else>
               <div style="padding:14px;">
                 <span class="time">{{o.remarks}}</span>
                 <div class="bottom clearfix">
-                  <el-button type="text" class="button">去看看</el-button>
+                  <el-button type="info" class="button" @click="setindexid(o.id)" size="mini">据为己有</el-button>
                 </div>
               </div>
             </div>
@@ -32,6 +32,10 @@ export default {
   methods: {
     gotohomepage: function (id) {
       this.$router.push({name: 'homepage', params: {uid: id}})
+    },
+    setindexid: function (id) {
+      this.H.SL('showindexuid', id)
+      this.H.success('设置成功，去首页看看吧！')
     }
   },
   mounted: function () {
@@ -62,6 +66,7 @@ export default {
   .image{
     width: 100%;
     display: block;
+    cursor: pointer;
   }
   .cardlistone{
     margin-bottom:20px;

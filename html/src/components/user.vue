@@ -1,9 +1,9 @@
 <template>
     <el-row type="flex" justify="center">
-      <el-col :span="12">
+      <el-col :xs="24" :sm="20" :md="18" :lg="16">
         <h1>用户中心</h1>
         <el-row :gutter="20">
-          <el-col  :xs="10" :sm="8" :md="6" :lg="5">
+          <el-col  :xs="24" :sm="6" :md="6" :lg="5">
             <el-menu  :default-active="defaulturl" class="el-menu-vertical-demo" router="router">     
                 <el-menu-item index="/user/usertopic"><i class="el-icon-setting"></i>链接主题</el-menu-item>
                 <el-menu-item index="/user/userarticle"><i class="el-icon-setting"></i>链接列表</el-menu-item>
@@ -15,7 +15,7 @@
                 </li>
             </el-menu>
           </el-col>
-          <el-col  :xs="14" :sm="16" :md="18" :lg="19">         
+          <el-col  :xs="24" :sm="18" :md="18" :lg="19">         
             <router-view></router-view>
           </el-col>
         </el-row>
@@ -46,6 +46,10 @@ export default {
         this.H.success('删除成功!')
         // 请求服务器退出登录
         this.H.ajax('/common/login/loginout', {}, 'post', function (data) {
+          // 根据用户设置判断是否清空主页配置
+          if (Number(that.H.GL('userinfo').auto_delindex) === 1) {
+            that.H.SL('showindexuid')
+          }
           that.H.SL('userinfo')
           that.H.store('headimg', 'static/login.png')
           that.H.store('userinfo', {})

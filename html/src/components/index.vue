@@ -1,11 +1,13 @@
 <template>
   <div>
-    <img class="logoimg" :src="userinfo.headimg" style="border-radius:50%;" v-if="userinfo.headimg">
-    <img class="logoimg" src="static/login.png" style="border-radius:50%;" v-else>
-    <h1>
-      {{ userinfo.remarks }}
-      <router-link v-show="!userinfo.id" :to="{ name:'square'}">广场</router-link>
-    </h1>
+    <template v-if="showindexuid">
+      <img class="logoimg" :src="userinfo.headimg" style="border-radius:50%;">
+      <h1>{{ userinfo.remarks }}</h1>
+    </template>
+    <template v-else>
+      <img class="logoimg" src="static/login.png" style="border-radius:50%;">
+      <h1>去<router-link :to="{ name:'square'}">广场</router-link>看看别人的收藏夹，并且据为己有</h1>
+    </template>
     <h2>主题</h2>
       <transition-group name="fadeindex" tag="ul">
         <li v-for="l in links" v-bind:key="l">
@@ -38,12 +40,6 @@ export default {
           that.H.error('网络错误！')
         }
       })
-    } else {
-      that.userinfo = {
-        headimg: that.$store.state.headimg,
-        remarks: '您还没有登录，或者去这看看！'
-      }
-      that.links = []
     }
   }
 }

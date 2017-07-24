@@ -27,6 +27,12 @@ class user{
 		return $list;
 	}
 
+	// 更改用户默认设置
+	public function changesetting($data){
+		$res = DB::exec('update `user` set auto_setindex = '.$data['auto_setindex'].', auto_delindex = '.$data['auto_delindex'].' where id = '.$data['uid']);
+		return $res;
+	}
+
 }
 
 ?>

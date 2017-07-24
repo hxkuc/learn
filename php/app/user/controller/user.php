@@ -154,6 +154,25 @@ class user extends base {
 		}
 		$this->ajaxreturn();
 	}
+
+	/*
+	*更改用户的默认设置
+	*/
+	public function changesetting(){
+		$data = $_REQUEST;
+		$data['uid'] = $_SESSION['userinfo']['id'];
+		$user = new \user\model\user;
+		$res = $user->changesetting($data);
+		if(false !== $res){
+			$this->assign('success',1);
+			$userinfo = $user->getuserinfo($data['uid']);
+			$this->assign('data',$userinfo);
+			$this->assign('info','操作成功！');
+		}else{
+			$this->assign('info','操作失败！');
+		}
+		$this->ajaxreturn();
+	}
 }
 
 ?>

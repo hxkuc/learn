@@ -11,6 +11,9 @@
           <router-link :to="{ name:'topic', params:{id:l.id}}">{{l.topicname}}</router-link>
         </li>
       </transition-group>
+      <h2>
+        <el-button type="info" class="button" @click="setindexid(userinfo.id)" size="mini">据为己有</el-button>
+      </h2>
   </div>
 </template>
 
@@ -21,6 +24,12 @@ export default {
     return {
       links: [],
       userinfo: {}
+    }
+  },
+  methods: {
+    setindexid: function (id) {
+      this.H.SL('showindexuid', id)
+      this.H.success('设置成功，去首页看看吧！')
     }
   },
   mounted: function () {

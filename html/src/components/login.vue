@@ -51,8 +51,10 @@
                   this.H.store('headimg', data.data.headimg)
                 }
                 this.H.SL('userinfo', data.data)
-                // 设置首页的主题为自己
-                this.H.SL('showindexuid', data.data.id)
+                // 设置首页的主题为自己（根据用户设置判断）
+                if (Number(data.data.auto_setindex) === 1) {
+                  this.H.SL('showindexuid', data.data.id)
+                }
                 // 提示登录成功
                 this.$message({
                   message: data.info,

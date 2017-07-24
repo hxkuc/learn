@@ -1,6 +1,16 @@
 <template>
   <el-row  class="cardlist" :gutter="25">
-    
+    <el-form :model="ruleForm" label-width="100px" class="formdemo">
+	  <el-form-item label="登陆设置">    
+	    <el-checkbox v-model="ruleForm.auto_setindex" name="type">登录自动设置主页</el-checkbox>
+	  </el-form-item>
+	  <el-form-item label="登出设置">
+	    <el-checkbox v-model="ruleForm.auto_delindex" name="type">退出清除默认主页</el-checkbox>
+	  </el-form-item>
+	  <el-form-item label-width="100px">
+	    <el-button type="primary" @click="saveset">保存</el-button>
+	  </el-form-item>
+	</el-form>
   </el-row>
 </template>
 
@@ -9,65 +19,29 @@ export default {
   name: 'setting',
   data () {
     return {
-      msg: ''
+      ruleForm: {
+        auto_setindex: Boolean(Number(this.H.GL('userinfo').auto_setindex)),
+        auto_delindex: Boolean(Number(this.H.GL('userinfo').auto_delindex))
+      }
     }
   },
   methods: {
-    submitForm (formName) {
-      var that = this
-      that.$refs[formName].validate((valid) => {
-        if (valid) {
-          let loadingInstance = that.$loading({ fullscreen: true })
-          that.H.ajax('/home/article/addarticle', {
-            topicid: that.$route.params.id,
-            articlename: that.ruleForm.title,
-            articleurl: that.ruleForm.url
-          }, 'post', function (data) {
-            loadingInstance.close()
-            if (data.data.success) {
-              that.$message({message: data.data.info, type: 'success'})
-              that.getmsg()
-              // 清除表单内容
-              that.$refs[formName].resetFields()
-            } else {
-              that.$message.error(data.data.info)
-            }
-          })
+    saveset: function () {
+      var _that = this
+      var _data = {
+        auto_setindex: _that.ruleForm.auto_setindex ? 1 : 0,
+        auto_delindex: _that.ruleForm.auto_delindex ? 1 : 0
+      }
+      _that.H.ajax('/user/user/changesetting', _data, 'post', data => {
+        if (data.success) {
+          // 重新赋值本地缓存
+          _that.H.SL('userinfo', data.data)
+          _that.H.success(data.info)
         } else {
-          this.$notify.error({
-            title: '错误',
-            message: '信息填写不完整！'
-          })
-          return false
+          _that.error(data.info)
         }
       })
-    },
-    deletearticle: function (id) {
-      var that = this
-      this.$confirm('此操作将永久删除该文章, 是否继续?', '警告', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        that.H.ajax('/home/topic/deletearticle', {id: id}, 'post', function (data) {
-          if (data.data.success === 1) {
-            that.$message({
-              type: 'success',
-              message: data.data.info
-            })
-            that.getmsg()
-          } else {
-            that.$message({
-              type: 'error',
-              message: data.data.info
-            })
-          }
-        })
-      }).catch(() => {
-      })
     }
-  },
-  mounted: function () {
   }
 }
 </script>
@@ -83,5 +57,8 @@ export default {
   }
   .cardlist:hover{
     box-shadow: 0 0 8px 0 rgba(232,237,250,.6),0 2px 4px 0 rgba(232,237,250,.5);
+  }
+  .formdemo{
+    text-align: left;
   }
 </style>
