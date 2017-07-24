@@ -8,7 +8,9 @@
               <img @click="gotohomepage(o.id)" :src="o.headimg" class="image" v-if="o.headimg">
               <img @click="gotohomepage(o.id)" src="static/login.png" class="image" v-else>
               <div style="padding:14px;">
-                <span class="time">{{o.remarks}}</span>
+                <el-tooltip :content="o.remarks" placement="top" effect="light">
+                  <span class="time">{{o.remarks}}</span>
+                </el-tooltip>
                 <div class="bottom clearfix">
                   <el-button type="info" class="button" @click="setindexid(o.id)" size="mini">据为己有</el-button>
                 </div>
@@ -75,6 +77,9 @@ export default {
   .time {
     font-size: 13px;
     color: #999;
+    display: block;
+    height: 40px;
+    overflow: hidden;
   }
   .clearfix:before,
   .clearfix:after {
