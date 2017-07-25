@@ -1,7 +1,7 @@
 <template>
     <el-row class="boxdiv" type="flex" justify="center">
     <el-col :span="18">
-    <el-upload class="upload-demo" action="//up.qbox.me/" 
+    <el-upload class="upload-demo" action="http://up.qbox.me/" 
       :show-file-list="false"
       :on-success="handleAvatarSuccess"
       :before-upload="beforeAvatarUpload"

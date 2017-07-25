@@ -27,7 +27,7 @@ class base extends regulation{
 	}
 
 	public function getqiniutoken(){
-		include ROOT_PATH.'\/plugins\/qiniu\/index.php';
+		include ROOT_PATH.'plugins/qiniu/index.php';
 		$this->assign('data',$token);
 		$this->ajaxreturn();
 	}
