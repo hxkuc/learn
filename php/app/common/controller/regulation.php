@@ -22,7 +22,7 @@ class regulation {
 
 	//ajax统一返回数据格式
 	public function ajaxreturn(){
-		header("Access-Control-Allow-Origin:http://localhost:8080");
+		header("Access-Control-Allow-Origin:http://localhost:9080");
 		header("Access-Control-Allow-Headers:x-requested-with");
 		header("Access-Control-Request-Method:GET,POST,PUT,DELETE");
 		header("Access-Control-Allow-Credentials:true");
