@@ -88,7 +88,7 @@ class article
 		$order = ' order by a.addtime desc';
 
 		$list = DB::query('
-			select a.articlename,a.articleurl,a.addtime,u.username,u.headimg from `article` a left join `user` u on a.uid = u.id where '.$where.$order.' limit '.$pagenum.','.$filter["pagesize"]
+			select a.articlename,a.articleurl,a.addtime,u.username,u.headimg,u.id from `article` a left join `user` u on a.uid = u.id where '.$where.$order.' limit '.$pagenum.','.$filter["pagesize"]
 			);
 
 		return $list;

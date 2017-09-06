@@ -51,10 +51,9 @@ class index extends base
 	// 获取最新的连接
 	public function getNewArticle()
 	{
+		$filter = $_REQUEST;
 		$article = new \home\model\article;
 		$filter['status'] = 1;
-		$filter['currentpage'] = 1;
-		$filter['pagesize'] = 10;
 		$list = $article->getNewArticle($filter);
 		$this->assign('data', $list);
 		$this->assign('success',1);
